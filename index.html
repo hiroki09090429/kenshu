@@ -1688,8 +1688,20 @@ function openTrip(id) {
     (trip.dests || []).forEach(d => scopes.push('dyn-' + d.key));
     scopes.forEach(s => { if (!sectionMemos[s]) sectionMemos[s] = []; if (!sectionPhotos[s]) sectionPhotos[s] = []; });
     loadState();
+    // 保存ノートがある項目は textarea の例文を消す
+    clearTextareasWithSavedNotes();
   }
   updateProgress();
+}
+
+// 保存ノートが存在する項目のtextareaを空にする（例文を消す）
+function clearTextareasWithSavedNotes() {
+  Object.keys(noteData).forEach(id => {
+    if (noteData[id] && noteData[id].length > 0) {
+      const ta = document.getElementById('inp-' + id);
+      if (ta) ta.value = '';
+    }
+  });
 }
 
 function clearAppState() {
