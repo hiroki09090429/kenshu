@@ -1546,18 +1546,55 @@ const YAMANASHI_TRIP_META = {
   storageKey: 'yamanashi_kenshu_v1', isDefault: true
 };
 
+const KANSAI_2025_TRIP_META = {
+  id: 'kansai_2025', name: '関西研修', icon: '🏯',
+  period: '2025年8月25〜28日（3泊4日）',
+  purpose: 'querofuneの「ハレの日体験」「地域ブランディング」「高級ホスピタリティ」を、京都の老舗都市型ホテル・国際ブランドのリゾート・京料理温泉宿という3タイプの異なる業態を連続体験することで多角的に研究。',
+  isDefault: false,
+  dests: [
+    { key: 'kyoto-mitsui', icon: '🏯', name: '三井ガーデンホテル京都四条', period: '8/25-26',
+      intro: '京都市下京区四条通の大手都市型ブランドホテル。日本の伝統工芸を意識した内装、和洋折衷の朝食ビュッフェ、京都らしい接客所作を体感。【視察観点】チェーンホテルでも実現できる地域性の出し方、和素材を活かした空間演出、都市部での「お土産にしたくなる」朝食設計を自店のショーケース・接客に転用。'
+    },
+    { key: 'awaji-mercure', icon: '🌊', name: 'グランドメルキュール淡路島リゾート＆スパ', period: '8/26-27',
+      intro: '世界的ホテルチェーンAccor系の高級リゾート。海外目線での「日本らしさ」演出、温泉付きスパ、淡路島食材を活かしたフレンチ。【視察観点】国際ブランドが日本のローカル素材を「価値ある体験」に昇華させる手法、高単価帯のサービス所作、家族向けリゾート設計を観察し、querofuneの世界観構築に応用。'
+    },
+    { key: 'kameoka-tsukiya', icon: '♨', name: '京ごはんと露天風呂の宿 ゆのはな月や', period: '8/27-28',
+      intro: '京都府亀岡市・湯の花温泉の京料理＆露天風呂の宿。【視察観点】「京ごはん」というブランディング、地域食材の見せ方、温泉と食の融合体験、和の客室演出。製菓と懐石の「素材の物性を活かす」共通点、季節感の表現方法を研究。「ハレの日の特別感」を自店の限定メニュー・ギフト商品に転用。'
+    }
+  ]
+};
+
+const CHITA_2026_TRIP_META = {
+  id: 'chita_2026', name: '知多研修', icon: '🌅',
+  period: '2026年3月24〜25日（1泊2日）',
+  purpose: 'querofuneの拠点（愛知）に近い知多半島で、地域密着型リゾートの「家族客向け設計」「地域食材活用」「海辺のロケーション演出」を研究。山梨・関西と異なる「身近な地域での非日常体験」の作り方を視察。',
+  isDefault: false,
+  dests: [
+    { key: 'chitamihama', icon: '🌅', name: '亀の井ホテル 知多美浜', period: '3/24-25',
+      intro: '愛知県知多郡美浜町・伊勢湾を望むリゾートホテル（旧かんぽの宿系列）。【視察観点】地域密着の中価格帯ホテルがどのように「家族客のリピート」を生んでいるか。地元食材（知多牛・伊勢湾の魚介）の活用、海を活かしたロケーション演出、子供連れ向け設備、リーズナブルな価格でも「特別感」を出す工夫を観察。querofuneの近隣商圏での「日常と非日常のバランス」設計に転用。'
+    }
+  ]
+};
+
 function loadTrips() {
   try {
     const raw = localStorage.getItem(TRIPS_META_KEY);
     if (raw) {
       allTrips = JSON.parse(raw);
-      if (!allTrips.find(t => t.id === 'yamanashi_2026')) {
-        allTrips.unshift(YAMANASHI_TRIP_META); saveTrips();
-      }
+      let changed = false;
+      if (!allTrips.find(t => t.id === 'yamanashi_2026')) { allTrips.unshift(YAMANASHI_TRIP_META); changed = true; }
+      if (!allTrips.find(t => t.id === 'kansai_2025')) { allTrips.push(KANSAI_2025_TRIP_META); changed = true; }
+      if (!allTrips.find(t => t.id === 'chita_2026')) { allTrips.push(CHITA_2026_TRIP_META); changed = true; }
+      // 既存トリップ（古い構造）にpurpose/introがない場合は上書き更新
+      const k = allTrips.find(t => t.id === 'kansai_2025');
+      if (k && !k.purpose) { Object.assign(k, KANSAI_2025_TRIP_META); changed = true; }
+      const c = allTrips.find(t => t.id === 'chita_2026');
+      if (c && !c.purpose) { Object.assign(c, CHITA_2026_TRIP_META); changed = true; }
+      if (changed) saveTrips();
     } else {
-      allTrips = [YAMANASHI_TRIP_META]; saveTrips();
+      allTrips = [YAMANASHI_TRIP_META, KANSAI_2025_TRIP_META, CHITA_2026_TRIP_META]; saveTrips();
     }
-  } catch(e) { allTrips = [YAMANASHI_TRIP_META]; }
+  } catch(e) { allTrips = [YAMANASHI_TRIP_META, KANSAI_2025_TRIP_META, CHITA_2026_TRIP_META]; }
 }
 function saveTrips() {
   try { localStorage.setItem(TRIPS_META_KEY, JSON.stringify(allTrips)); } catch(e) {}
