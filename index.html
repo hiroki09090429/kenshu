@@ -1766,7 +1766,7 @@ function buildDynamicTrip(trip, tabBar, dynContent) {
   // 概要タブ
   html += `<div id="tab-dyn-overview" class="tab-content active">
     <div class="purpose-card">
-      <strong>【研修名】</strong>${esc(trip.name)}${trip.period ? `<br><strong>【期間】</strong>${esc(trip.period)}` : ''}${(trip.dests||[]).map(d=>`<br><strong>【訪問先】</strong>${esc(d.name)}`).join('')}
+      <strong>【研修名】</strong>${esc(trip.name)}${trip.period ? `<br><strong>【期間】</strong>${esc(trip.period)}` : ''}${(trip.dests||[]).map(d=>`<br><strong>【訪問先】</strong>${esc(d.name)}${d.period?`（${esc(d.period)}）`:''}`).join('')}${trip.purpose ? `<br><br><strong>【視察目的】</strong><br>${esc(trip.purpose)}` : ''}<br><br>按分方針：<strong>2/3を事業費計上・1/3を自己負担（子供分は個人負担として会社へ返金）</strong>
     </div>
     <div class="memo-block">
       <div class="memo-block-header">✏ 全体メモ・アイデア</div>
