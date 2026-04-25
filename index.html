@@ -1586,9 +1586,9 @@ function loadTrips() {
       if (!allTrips.find(t => t.id === 'yamanashi_2026')) { allTrips.unshift(YAMANASHI_TRIP_META); changed = true; }
       if (!allTrips.find(t => t.id === 'kansai_2025')) { allTrips.push(KANSAI_2025_TRIP_META); changed = true; }
       if (!allTrips.find(t => t.id === 'chita_2026')) { allTrips.push(CHITA_2026_TRIP_META); changed = true; }
-      // 既存トリップ（古い構造）にpurpose/intro/allocation/examplesがない場合は上書き更新
+      // 既存トリップ（古い構造）にpurpose/intro/allocation/examples/templateVersionがない or 古い場合は上書き更新
       const k = allTrips.find(t => t.id === 'kansai_2025');
-      if (k && (!k.purpose || !k.allocation || !(k.dests && k.dests[0] && k.dests[0].examples))) { Object.assign(k, KANSAI_2025_TRIP_META); changed = true; }
+      if (k && (!k.purpose || !k.allocation || !(k.dests && k.dests[0] && k.dests[0].examples) || (k.templateVersion || 0) < (KANSAI_2025_TRIP_META.templateVersion || 0))) { Object.assign(k, KANSAI_2025_TRIP_META); changed = true; }
       const c = allTrips.find(t => t.id === 'chita_2026');
       if (c && (!c.purpose || !c.allocation)) { Object.assign(c, CHITA_2026_TRIP_META); changed = true; }
       if (changed) saveTrips();
