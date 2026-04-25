@@ -1790,7 +1790,10 @@ function buildDynamicTrip(trip, tabBar, dynContent) {
   // 各行き先タブ
   (trip.dests || []).forEach(dest => {
     html += `<div id="tab-dyn-${dest.key}" class="tab-content">`;
-    html += `<div class="hotel-badge"><div class="dot"></div>${dest.name}</div>`;
+    html += `<div class="hotel-badge"><div class="dot"></div>${esc(dest.name)}${dest.period?`｜${esc(dest.period)}`:''}</div>`;
+    if (dest.intro) {
+      html += `<div class="hotel-intro-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px;line-height:1.7;">${esc(dest.intro)}</div>`;
+    }
     CHECK_SECTIONS.forEach(sec => {
       html += `<div class="section-card">
         <div class="section-header"><span class="section-icon">${sec.icon}</span><span class="section-title">${sec.title}</span></div>
