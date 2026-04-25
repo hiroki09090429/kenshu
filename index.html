@@ -744,29 +744,6 @@ if ('serviceWorker' in navigator) {
     </div>
   </div>
 
-  <div class="memo-block">
-    <div class="memo-block-header">✏ 自店への適用メモ・アイデア</div>
-    <div class="memo-block-body">
-      <div id="ov-log" class="memo-log-list"><div class="memo-log-empty" id="ov-empty">まだ記録がありません</div></div>
-      <div class="memo-field-row"><div class="memo-field-label">カテゴリ</div>
-        <select id="ov-cat">
-          <option value="💡 即実行アイデア">💡 即実行アイデア</option>
-          <option value="🔮 中長期アイデア">🔮 中長期アイデア</option>
-          <option value="👩 妻の感想">👩 妻の感想</option>
-          <option value="🧒 子供の反応">🧒 子供の反応</option>
-          <option value="📌 全体の気づき">📌 全体の気づき</option>
-        </select>
-      </div>
-      <div class="memo-field-row"><div class="memo-field-label">タイトル（省略可）</div><input type="text" id="ov-title" placeholder="一言で"></div>
-      <div class="memo-field-row"><textarea id="ov-body" rows="3" placeholder="気づき・感想・アイデアを入力..."></textarea></div>
-      <div class="photo-preview-row" id="ov-previews"></div>
-      <div class="memo-action-row">
-        <button class="btn-photo-attach" onclick="triggerPhoto('ov')">📷 写真</button>
-        <button type="button" class="btn-memo-add" onclick="addSectionMemo('ov')">+ 記録する</button>
-      </div>
-      <input type="file" id="file-ov" accept="image/*" multiple onchange="handleFiles(this.files,'ov')">
-    </div>
-  </div>
 
 </div>
 
