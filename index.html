@@ -1564,11 +1564,11 @@ function loadTrips() {
       if (!allTrips.find(t => t.id === 'yamanashi_2026')) { allTrips.unshift(YAMANASHI_TRIP_META); changed = true; }
       if (!allTrips.find(t => t.id === 'kansai_2025')) { allTrips.push(KANSAI_2025_TRIP_META); changed = true; }
       if (!allTrips.find(t => t.id === 'chita_2026')) { allTrips.push(CHITA_2026_TRIP_META); changed = true; }
-      // 既存トリップ（古い構造）にpurpose/introがない場合は上書き更新
+      // 既存トリップ（古い構造）にpurpose/intro/allocationがない場合は上書き更新
       const k = allTrips.find(t => t.id === 'kansai_2025');
-      if (k && !k.purpose) { Object.assign(k, KANSAI_2025_TRIP_META); changed = true; }
+      if (k && (!k.purpose || !k.allocation)) { Object.assign(k, KANSAI_2025_TRIP_META); changed = true; }
       const c = allTrips.find(t => t.id === 'chita_2026');
-      if (c && !c.purpose) { Object.assign(c, CHITA_2026_TRIP_META); changed = true; }
+      if (c && (!c.purpose || !c.allocation)) { Object.assign(c, CHITA_2026_TRIP_META); changed = true; }
       if (changed) saveTrips();
     } else {
       allTrips = [YAMANASHI_TRIP_META, KANSAI_2025_TRIP_META, CHITA_2026_TRIP_META]; saveTrips();
