@@ -1,4 +1,4 @@
-const CACHE = 'shaigai-kenshu-v8-20260425';
+const CACHE = 'shaigai-kenshu-v9-20260425';
 
 self.addEventListener('install', e => {
   e.waitUntil(
