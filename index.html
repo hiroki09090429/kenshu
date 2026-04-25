@@ -1766,23 +1766,6 @@ function buildDynamicTrip(trip, tabBar, dynContent) {
     <div class="purpose-card">
       <strong>【研修名】</strong>${esc(trip.name)}${trip.period ? `<br><strong>【期間】</strong>${esc(trip.period)}` : ''}${(trip.dests||[]).map(d=>`<br><strong>【訪問先】</strong>${esc(d.name)}${d.period?`（${esc(d.period)}）`:''}`).join('')}${trip.purpose ? `<br><br><strong>【視察目的】</strong><br>${esc(trip.purpose)}` : ''}<br><br>按分方針：<strong>2/3を事業費計上・1/3を自己負担（子供分は個人負担として会社へ返金）</strong>
     </div>
-    <div class="memo-block">
-      <div class="memo-block-header">✏ 全体メモ・アイデア</div>
-      <div class="memo-block-body">
-        <div id="dyn-ov-log" class="memo-log-list"><div class="memo-log-empty" id="dyn-ov-empty">まだ記録がありません</div></div>
-        <div class="memo-field-row"><div class="memo-field-label">カテゴリ</div>
-          <select id="dyn-ov-cat"><option value="💡 即実行アイデア">💡 即実行アイデア</option><option value="🔮 中長期アイデア">🔮 中長期アイデア</option><option value="👩 妻の感想">👩 妻の感想</option><option value="🧒 子供の反応">🧒 子供の反応</option><option value="📌 全体の気づき">📌 全体の気づき</option></select>
-        </div>
-        <div class="memo-field-row"><div class="memo-field-label">タイトル</div><input type="text" id="dyn-ov-title" placeholder="一言で"></div>
-        <div class="memo-field-row"><textarea id="dyn-ov-body" rows="3" placeholder="気づき・感想・アイデアを入力..."></textarea></div>
-        <div class="photo-preview-row" id="dyn-ov-previews"></div>
-        <div class="memo-action-row">
-          <button class="btn-photo-attach" onclick="triggerPhoto('dyn-ov')">📷 写真</button>
-          <button type="button" class="btn-memo-add" onclick="addSectionMemo('dyn-ov')">+ 記録する</button>
-        </div>
-        <input type="file" id="file-dyn-ov" accept="image/*" multiple onchange="handleFiles(this.files,'dyn-ov')">
-      </div>
-    </div>
   </div>`;
 
   // 各行き先タブ
